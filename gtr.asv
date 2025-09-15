@@ -1,0 +1,38 @@
+% expodata = readtable("C:\Users\LENOVO\Desktop\electric_vehicles_dataset.xlsx");
+disp(data);
+data.Year = (data.Year);
+years = unique(data.Year);
+variablesNames = data.Properties.VariableNames;
+num_years = length(years);
+
+%creating the yearly table
+yearly_table = cell(num_years,1);
+
+for i = 1:num_years
+    yr = years(i);
+    year_mask = (data.Year == yr);
+    yearly_table = data(year_mask, :);
+end
+  
+disp(  yearly_table );
+
+struct_array = table2struct(yearly_table);
+display(struct_array);
+
+filename = 'yearly_data.xlsx';
+
+for i = 1:num_years
+    currentYear = uniqueYear(i);
+    currentTable = yearly_table{i};
+    sheetname = ['Year',num2str(currentYear)];
+end
+
+if i == 1
+    writetable(currentTable,yearly_data.xlsx,1, sheetname);
+else 
+    writetable(currentTable,yearly_data.xlsx,1,sheetname );
+end
+
+
+
+
